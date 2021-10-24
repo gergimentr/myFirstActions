@@ -6,3 +6,4 @@ test after blocks
 first work git clone and pr merage
 
 codeql create manual works
+create base yml
