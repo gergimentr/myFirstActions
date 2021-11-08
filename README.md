@@ -11,3 +11,5 @@ create base yml
 bash div file contents
 
 06.11.2021 why work time different
+
+manual work
