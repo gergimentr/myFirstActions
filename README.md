@@ -13,3 +13,5 @@ bash div file contents
 06.11.2021 why work time different
 
 manual work
+
+07.12.2021 work with permission file
