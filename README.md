@@ -15,3 +15,5 @@ bash div file contents
 manual work
 
 07.12.2021 work with permission file
+
+03.03.2022 check install nix
