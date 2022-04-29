@@ -18,3 +18,5 @@ manual work
 
 03.03.2022 ~~check install nix~~
 12.03.2022 no work tmate?
+
+тест воркерс 
