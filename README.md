@@ -23,3 +23,4 @@ manual work
 тест воркерс 
 
 11.10.2022 android kernel build
+1
