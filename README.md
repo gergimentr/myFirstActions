@@ -21,3 +21,5 @@ manual work
 12.03.2022 no work tmate?
 
 тест воркерс 
+
+11.10.2022 android kernel build
