@@ -28,9 +28,21 @@ jobs:
      - name: step1 clone repo
        run: |
           df -h
-          repo init -u https://github.com/EssentialOpenSource/kernel-manifest -b refs/tags/QQ1A.200105.032
+          sudo curl https://storage.googleapis.com/git-repo-downloads/repo > /bin/repo&&chmod a+rx /bin/repo
+          git config --global user.name 'Warren Turkal'
+          git config --global user.email 'wt@example.com'
+          sudo repo init -u https://github.com/EssentialOpenSource/kernel-manifest -b refs/tags/QQ1A.200105.032
           repo sync -j4 -c
           df -h
-    - name: Setup tmate session
+     - name: download clang and gcc
+       run: |
+          df -h
+          git clone https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 toolchain
+          df -h
+          wget https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip
+          unzip android-ndk-r16b-linux-x86_64.zip -d toolchain
+          rm -rf android-ndk-r16b-linux-x86_64.zip
+          df -h
+     - name: Setup tmate session
           uses: mxschmitt/action-tmate@v3
           timeout-minutes : 300
