@@ -20,13 +20,13 @@ jobs:
           sudo apt-get autoremove -y
           sudo apt-get clean
           df -h
-     - name: install packages
-       run: |
+    - name: install packages
+      run: |
           sudo apt-get install -y git ccache automake flex lzop bison gperf build-essential zip curl zlib1g-dev zlib1g-dev:i386 g++-multilib python-networkx lib32z-dev libgl1-mesa-dev xsltproc unzip
           sudo apt-get install -y libxml2-utils bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev squashfs-tools pngcrush schedtool dpkg-dev liblz4-tool make optipng maven libssl-dev 
           sudo apt-get install -y pwgen libswitch-perl policycoreutils minicom libxml-sax-base-perl libxml-simple-perl bc libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev      
-     - name: step1 clone repo
-       run: |
+    - name: step1 clone repo
+      run: |
           df -h
           sudo curl https://storage.googleapis.com/git-repo-downloads/repo > /bin/repo&&chmod a+rx /bin/repo
           git config --global user.name 'Warren Turkal'
@@ -34,8 +34,8 @@ jobs:
           sudo repo init -u https://github.com/EssentialOpenSource/kernel-manifest -b refs/tags/QQ1A.200105.032
           repo sync -j4 -c
           df -h
-     - name: download clang and gcc
-       run: |
+    - name: download clang and gcc
+      run: |
           df -h
           git clone https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 toolchain
           df -h
@@ -43,6 +43,6 @@ jobs:
           unzip android-ndk-r16b-linux-x86_64.zip -d toolchain
           rm -rf android-ndk-r16b-linux-x86_64.zip
           df -h
-     - name: Setup tmate session
-          uses: mxschmitt/action-tmate@v3
-          timeout-minutes : 300
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      timeout-minutes : 300
