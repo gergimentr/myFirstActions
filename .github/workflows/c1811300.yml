@@ -3,8 +3,8 @@ on:
   issues:
     types: labeled
 jobs:
-1811300:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
     - name: clean space
