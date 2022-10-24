@@ -1,0 +1,36 @@
+name:  start workers
+on:
+  issues:
+    types: labeled
+jobs:
+1811300:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: clean space
+      run: |
+          df -h
+          docker rmi -f $(docker images -aq)
+          sudo apt-get remove -y '^dotnet-.*'
+          sudo apt-get remove -y '^llvm-.*'
+          sudo apt-get remove -y 'php.*'
+          sudo apt-get remove -y '^mongodb-.*'
+          sudo apt-get remove -y '^mysql-.*'
+          sudo apt-get remove -y azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel libgl1-mesa-dri
+          sudo apt-get autoremove -y
+          sudo apt-get clean
+          df -h
+     - name: install packages
+       run: |
+          sudo apt-get install -y git ccache automake flex lzop bison gperf build-essential zip curl zlib1g-dev zlib1g-dev:i386 g++-multilib python-networkx lib32z-dev libgl1-mesa-dev xsltproc unzip
+          sudo apt-get install -y libxml2-utils bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev squashfs-tools pngcrush schedtool dpkg-dev liblz4-tool make optipng maven libssl-dev 
+          sudo apt-get install -y pwgen libswitch-perl policycoreutils minicom libxml-sax-base-perl libxml-simple-perl bc libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev      
+     - name: step1 clone repo
+       run: |
+          df -h
+          repo init -u https://github.com/EssentialOpenSource/kernel-manifest -b refs/tags/QQ1A.200105.032
+          repo sync -j4 -c
+          df -h
+    - name: Setup tmate session
+          uses: mxschmitt/action-tmate@v3
+          timeout-minutes : 300
