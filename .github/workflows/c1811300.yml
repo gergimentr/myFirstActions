@@ -48,6 +48,15 @@ jobs:
       run: |
          cd /opt/&&sudo mkdir codeqlmy&&cd codeqlmy&&sudo git clone https://github.com/github/codeql.git codeql-repo
          cd /opt/codeqlmy&&sudo wget https://github.com/github/codeql-cli-binaries/releases/download/v2.11.1/codeql-linux64.zip&&sudo unzip codeql-linux64.zip&&sudo rm codeql-linux64.zip
+    - name: build step1
+      run: |
+         export ARCH=arm64
+         export CROSS_COMPILE=`pwd`/toolchain/android-ndk-r16b/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64/bin/aarch64-linux-android-
+         export CLANG_TRIPLE=aarch64-linux-gnu-
+         export CLANG_PREBUILT_BIN=`pwd`/toolchain/clang-r377782d/bin
+         export CC_CMD=${CLANG_PREBUILT_BIN}/clang
+         /opt/codeqlmy/codeql/codeql database create --language=cpp --source-root=./qcacld-3.0/ --command="make CC=${CC_CMD} -j32" -- /tmp/dbprj
+         cd ./qcacld-3.0/ &&make CC=${CC_CMD} -j32
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
       timeout-minutes : 300
