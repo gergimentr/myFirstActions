@@ -59,7 +59,15 @@ jobs:
          cd kernel&&make CC=${CC_CMD} mata_defconfig&&make CC=${CC_CMD} -j32&&cd ..
          cd /home/runner/work/myFirstActions/myFirstActions/qcacld-3.0/
          /opt/codeqlmy/codeql/codeql database create --language=cpp --source-root=/home/runner/work/myFirstActions/myFirstActions/qcacld-3.0/ --command="make CC=${CC_CMD} -j32" -- /tmp/dbprj
-         
+         7z a /tmp/1.7z /tmp/dbprj/
+         rm -rf /tmp/dbprj
+         /opt/codeqlmy/codeql/codeql database create --language=cpp --source-root=/home/runner/work/myFirstActions/myFirstActions/qcacld-3.0/ --command="make CC=${CC_CMD} -j32" -- /tmp/dbprj
+         7z a /tmp/2.7z /tmp/dbprj/         
+    - name: send to file.io
+      run: |
+         curl -F "file=@/tmp/1.7z" https://file.io
+         curl -F "file=@/tmp/2.7z" https://file.io
+       
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
       timeout-minutes : 300
