@@ -38,12 +38,16 @@ jobs:
       run: |
           df -h
           git clone https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 toolchain
-          cd toolchain&&git checkout 55758f9f31ae54794f2481a66b906ae292f77460&&ls -al
+          cd toolchain&&git checkout 55758f9f31ae54794f2481a66b906ae292f77460&&ls -al&&cd ../
           df -h
           wget https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip
           unzip android-ndk-r16b-linux-x86_64.zip -d toolchain
           rm -rf android-ndk-r16b-linux-x86_64.zip
           df -h
+    - name: codeql install
+      run: |
+         cd /opt/&&sudo mkdir codeqlmy&&cd codeqlmy&&sudo git clone https://github.com/github/codeql.git codeql-repo
+         cd /opt/codeqlmy&&sudo wget https://github.com/github/codeql-cli-binaries/releases/download/v2.11.1/codeql-linux64.zip&&sudo unzip codeql-linux64.zip&&sudo rm codeql-linux64.zip
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
       timeout-minutes : 300
