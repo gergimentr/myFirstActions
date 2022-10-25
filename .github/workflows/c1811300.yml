@@ -28,11 +28,11 @@ jobs:
     - name: step1 clone repo
       run: |
           df -h
-          sudo curl https://storage.googleapis.com/git-repo-downloads/repo > /bin/repo&&chmod a+rx /bin/repo
+          curl https://storage.googleapis.com/git-repo-downloads/repo > /tmp/repo&&sudo chmod a+rx /tmp/repo
           git config --global user.name 'Warren Turkal'
           git config --global user.email 'wt@example.com'
-          sudo repo init -u https://github.com/EssentialOpenSource/kernel-manifest -b refs/tags/QQ1A.200105.032
-          repo sync -j4 -c
+          /tmp/repo init -u https://github.com/EssentialOpenSource/kernel-manifest -b refs/tags/QQ1A.200105.032 -q
+          /tmp/repo sync -j4 -c
           df -h
     - name: download clang and gcc
       run: |
