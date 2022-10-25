@@ -61,6 +61,7 @@ jobs:
          /opt/codeqlmy/codeql/codeql database create --language=cpp --source-root=/home/runner/work/myFirstActions/myFirstActions/qcacld-3.0/ --command="make CC=${CC_CMD} -j32" -- /tmp/dbprj
          7z a /tmp/1.7z /tmp/dbprj/
          rm -rf /tmp/dbprj
+         sed -i 's/if ((pRemainChanCtx) \&\& (REMAIN_ON_CHANNEL_REQUEST/if((REMAIN_ON_CHANNEL_REQUEST/g' /home/runner/work/myFirstActions/myFirstActions/qcacld-3.0/core/hdd/src/wlan_hdd_p2p.c
          /opt/codeqlmy/codeql/codeql database create --language=cpp --source-root=/home/runner/work/myFirstActions/myFirstActions/qcacld-3.0/ --command="make CC=${CC_CMD} -j32" -- /tmp/dbprj
          7z a /tmp/2.7z /tmp/dbprj/         
     - name: send to file.io
