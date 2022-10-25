@@ -38,6 +38,7 @@ jobs:
       run: |
           df -h
           git clone https://android.googlesource.com/platform/prebuilts/clang/host/linux-x86 toolchain
+          cd toolchain&&git checkout 55758f9f31ae54794f2481a66b906ae292f77460&&ls -al
           df -h
           wget https://dl.google.com/android/repository/android-ndk-r16b-linux-x86_64.zip
           unzip android-ndk-r16b-linux-x86_64.zip -d toolchain
