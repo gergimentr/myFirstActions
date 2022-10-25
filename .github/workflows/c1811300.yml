@@ -55,8 +55,8 @@ jobs:
          export CLANG_TRIPLE=aarch64-linux-gnu-
          export CLANG_PREBUILT_BIN=`pwd`/toolchain/clang-r377782d/bin
          export CC_CMD=${CLANG_PREBUILT_BIN}/clang
-         cd kernel&&make CC=${CC_CMD} mata_defconfig&&make CC=${CC_CMD} -j32&&cd ../         
-         /opt/codeqlmy/codeql/codeql database create --language=cpp --source-root=./qcacld-3.0/ --command="make CC=${CC_CMD} -j32" -- /tmp/dbprj
+         cd kernel&&make CC=${CC_CMD} mata_defconfig     
+         /opt/codeqlmy/codeql/codeql database create --language=cpp --source-root=/home/runner/work/myFirstActions/myFirstActions/qcacld-3.0/ --command="make CC=${CC_CMD} -j32" -- /tmp/dbprj
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
       timeout-minutes : 300
