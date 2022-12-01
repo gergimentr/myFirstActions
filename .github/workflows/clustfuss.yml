@@ -4,7 +4,7 @@ on:
     types: labeled
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
     - name: clean space
@@ -22,8 +22,6 @@ jobs:
           df -h
     - name: step1 clone repo
       run: |
-          sudo apt-get install google-cloud-sdk python3.7
-          alias python=python3.7
           git clone https://github.com/google/clusterfuzz
           (cd clusterfuzz&&git checkout tags/v2.5.7)
           (cd clusterfuzz&&local/install_deps.bash)
