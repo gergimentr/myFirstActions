@@ -1,0 +1,30 @@
+name:  start workers
+on:
+  issues:
+    types: labeled
+jobs:
+  build:
+    runs-on: ubuntu-18.10
+    steps:
+    - uses: actions/checkout@v2
+    - name: clean space
+      run: |
+          df -h
+          docker rmi -f $(docker images -aq)
+          sudo apt-get remove -y '^dotnet-.*'
+          sudo apt-get remove -y '^llvm-.*'
+          sudo apt-get remove -y 'php.*'
+          sudo apt-get remove -y '^mongodb-.*'
+          sudo apt-get remove -y '^mysql-.*'
+          sudo apt-get remove -y azure-cli hhvm google-chrome-stable firefox powershell mono-devel libgl1-mesa-dri
+          sudo apt-get autoremove -y
+          sudo apt-get clean
+          df -h
+    - name: step1 clone repo
+      run: |
+          git clone https://github.com/google/clusterfuzz
+          cd clusterfuzz&&git checkout tags/v2.5.7
+          git pull       
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      timeout-minutes : 300
