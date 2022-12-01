@@ -22,9 +22,11 @@ jobs:
           df -h
     - name: step1 clone repo
       run: |
+          sudo apt-get install google-cloud-sdk
           git clone https://github.com/google/clusterfuzz
           cd clusterfuzz&&git checkout tags/v2.5.7
-          git pull       
+          cd clusterfuzz&&local/install_deps.bash
+          cd clusterfuzz&&pipenv shell&&python butler.py run_server --bootstrap&
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
       timeout-minutes : 300
