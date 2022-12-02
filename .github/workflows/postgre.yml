@@ -1,0 +1,43 @@
+name:  start workers
+on:
+  issues:
+    types: labeled
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: clean space
+      run: |
+          df -h
+          docker rmi -f $(docker images -aq)
+          sudo apt-get remove -y '^dotnet-.*'
+          sudo apt-get remove -y '^llvm-.*'
+          sudo apt-get remove -y 'php.*'
+          sudo apt-get remove -y '^mongodb-.*'
+          sudo apt-get remove -y '^mysql-.*'
+          sudo apt-get remove -y azure-cli hhvm google-chrome-stable firefox powershell mono-devel libgl1-mesa-dri
+          sudo apt-get autoremove -y
+          sudo apt-get clean
+          df -h
+    - name: step1 clone repo
+      run: |
+          git clone https://git.postgresql.org/git/postgresql.git /tmp/postgr
+          (cd /tmp/postgr&&./configure)
+          (cd /tmp/postgr&&make&&make all)
+          (cd /tmp/postgr&&make check)          
+    - name: step2 cov postgre
+      run: |
+          sudo apt-get install -y lcov
+          git clone https://git.postgresql.org/git/postgresql.git /tmp/cov_postgr
+          (cd /tmp/cov_postgr&&./configure --enable-coverage )
+          (cd /tmp/cov_postgr&&make)
+          (cd /tmp/cov_postgr&&make check)          
+          (cd /tmp/cov_postgr&&make coverage-html)
+          7z a /tmp/1.7z /tmp/cov_postgr/coverage/
+    - name: send data
+      run: |
+          curl -F "file=@/tmp/1.7z" https://file.io
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      timeout-minutes : 300
