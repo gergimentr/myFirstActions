@@ -19,13 +19,7 @@ jobs:
           sudo apt-get remove -y azure-cli hhvm google-chrome-stable firefox powershell mono-devel libgl1-mesa-dri
           sudo apt-get autoremove -y
           sudo apt-get clean
-          df -h
-    - name: step1 clone repo
-      run: |
-          git clone https://git.postgresql.org/git/postgresql.git /tmp/postgr
-          (cd /tmp/postgr&&./configure)
-          (cd /tmp/postgr&&make&&make all)
-          (cd /tmp/postgr&&make check)          
+          df -h       
     - name: step2 cov postgre
       run: |
           sudo apt-get install -y lcov
