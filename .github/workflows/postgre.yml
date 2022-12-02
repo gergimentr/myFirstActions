@@ -26,7 +26,9 @@ jobs:
           git clone https://git.postgresql.org/git/postgresql.git /tmp/cov_postgr
           (cd /tmp/cov_postgr&&./configure --enable-coverage )
           (cd /tmp/cov_postgr&&make)
-          (cd /tmp/cov_postgr&&make check)          
+          (cd /tmp/cov_postgr&&make check)
+          (cd /tmp/cov_postgr/src/interfaces/libpq&&rm *.gc*)
+          (cd /tmp/cov_postgr/src/interfaces/libpq&&rm lcov.info)          
           (cd /tmp/cov_postgr&&make coverage-html)
           7z a /tmp/1.7z /tmp/cov_postgr/coverage/
     - name: send data
