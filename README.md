@@ -28,3 +28,4 @@ manual work
 test2
 test3
 rpm work
+test docker file
