@@ -35,3 +35,4 @@ test1
 16.07.23 firefox driver test
 
 120823 test libclang
+290823 test apt-get install witout sudo
